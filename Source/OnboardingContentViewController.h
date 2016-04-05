@@ -21,6 +21,7 @@ typedef void (^action_callback)(OnboardingViewController *onboardController);
     NSString *_titleText;
     NSString *_body;
     UIImage *_image;
+    NSArray *_images;
     NSString *_buttonText;
     
     UIImageView *_imageView;
@@ -64,6 +65,9 @@ typedef void (^action_callback)(OnboardingViewController *onboardController);
 
 + (instancetype)contentWithTitle:(NSString *)title body:(NSString *)body image:(UIImage *)image buttonText:(NSString *)buttonText action:(dispatch_block_t)action;
 - (instancetype)initWithTitle:(NSString *)title body:(NSString *)body image:(UIImage *)image buttonText:(NSString *)buttonText action:(dispatch_block_t)action;
+- (instancetype)initWithTitle:(NSString *)title body:(NSString *)body image:(UIImage *)image images:(NSMutableArray *)imagesArray buttonText:(NSString *)buttonText action:(dispatch_block_t)action;
+///// ^^^ My addition for animated images
+
 + (instancetype)contentWithTitle:(NSString *)title body:(NSString *)body image:(UIImage *)image buttonText:(NSString *)buttonText actionBlock:(action_callback)actionBlock;
 
 + (instancetype)contentWithTitle:(NSString *)title body:(NSString *)body videoURL:(NSURL *)videoURL buttonText:(NSString *)buttonText action:(dispatch_block_t)action;
@@ -74,5 +78,6 @@ typedef void (^action_callback)(OnboardingViewController *onboardController);
 - (instancetype)initWithTitle:(NSString *)title body:(NSString *)body image:(UIImage *)image videoURL:videoURL buttonText:(NSString *)buttonText actionBlock:(action_callback)actionBlock;
 
 - (void)updateAlphas:(CGFloat)newAlpha;
+-(void)setAnimatedImages:(NSMutableArray *)images;
 
 @end

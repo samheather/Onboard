@@ -56,6 +56,15 @@ NSString * const kOnboardActionButtonAccessibilityIdentifier = @"OnboardActionBu
     }];
 }
 
+// Animated Images constructor - same as the one above
+- (instancetype)initWithTitle:(NSString *)title body:(NSString *)body image:(UIImage *)image images:(NSMutableArray *)imagesArray buttonText:(NSString *)buttonText action:(dispatch_block_t)action {
+    NSLog(@"This is the animated images constructor");
+    _images = imagesArray;
+    return [self initWithTitle:title body:body image:image buttonText:buttonText actionBlock:^(OnboardingViewController *onboardController) {
+        if(action) action();
+    }];
+}
+
 + (instancetype)contentWithTitle:(NSString *)title body:(NSString *)body image:(UIImage *)image buttonText:(NSString *)buttonText actionBlock:(action_callback)actionBlock {
     OnboardingContentViewController *contentVC = [[self alloc] initWithTitle:title body:body image:image buttonText:buttonText actionBlock:actionBlock];
     return contentVC;
@@ -240,6 +249,12 @@ NSString * const kOnboardActionButtonAccessibilityIdentifier = @"OnboardActionBu
         _imageView = [[UIImageView alloc] initWithImage:_image];
         [_imageView setFrame:CGRectMake(horizontalCenter - (self.iconWidth / 2), self.topPadding, self.iconWidth, self.iconHeight)];
         [self.view addSubview:_imageView];
+        if (_images) {
+            _imageView.image = nil;
+            _imageView.animationImages = _images;
+            _imageView.animationDuration = 2.5;
+            [_imageView startAnimating];
+        }
     
     } else if (self.videoURL) {
         
